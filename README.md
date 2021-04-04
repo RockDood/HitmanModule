@@ -1,1 +1,1 @@
-HitmanModule
+#[ModKit Wiki](../../wiki)
