@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections;
+using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
 using UnityEngine;
@@ -7,14 +8,14 @@ using Random = UnityEngine.Random;
 
 public class HitmanScript : KtaneModule
 {
-    private readonly string[] OneLine = new string[] { 
+    private static readonly string[] OneLine = new string[] { 
         "Called queue early in TP", 
         "Mistyped Swan Code", 
         "Wrongly noted edgework", 
         "Gave guesses", 
         "Missed Turn the Key" };
     
-    private string[,] TwoLine = new string[,] { 
+    private static readonly string[,] TwoLine = new string[,] { 
         { "Blamed Expert for", "Defuser error" }, 
         { "Hit Self Destruct", "in Lightspeed" }, 
         { "Misclicked on", "the last module" }, 
@@ -33,7 +34,7 @@ public class HitmanScript : KtaneModule
         { "Commited tax fraud", "in Tax Returns" }
     };
 
-    private static string[] _targetNames = new string[] { 
+    private static readonly string[] _targetNames = new string[] { 
         "Adalrice Candelaria", 
         "Anthony Troutt", 
         "Bradley Paine", 
@@ -132,120 +133,10 @@ public class HitmanScript : KtaneModule
         "Tamara Vidal"
     };
 
-    private string[] _gunSounds = new string[] { "firing1", "firing2", "firing3", "firing4", "firing5", "firing6", "firing7" };
+    private static readonly string[] _gunSounds = new string[] { "firing1", "firing2", "firing3", "firing4", "firing5", "firing6", "firing7" };
 
-    private Targets[] TargetInformation = new Targets[] //I don't know why it only works like this. I wanted it shorter. I had a stroke before coming to this conclusion.
-        {
-            new Targets {Name = "", Age = 0, Reason1 = "", Reason2 = ""},
-            new Targets {Name = "", Age = 0, Reason1 = "", Reason2 = ""},
-            new Targets {Name = "", Age = 0, Reason1 = "", Reason2 = ""},
-            new Targets {Name = "", Age = 0, Reason1 = "", Reason2 = ""},
-            new Targets {Name = "", Age = 0, Reason1 = "", Reason2 = ""},
-            new Targets {Name = "", Age = 0, Reason1 = "", Reason2 = ""},
-            new Targets {Name = "", Age = 0, Reason1 = "", Reason2 = ""},
-            new Targets {Name = "", Age = 0, Reason1 = "", Reason2 = ""},
-            new Targets {Name = "", Age = 0, Reason1 = "", Reason2 = ""},
-            new Targets {Name = "", Age = 0, Reason1 = "", Reason2 = ""},
-            new Targets {Name = "", Age = 0, Reason1 = "", Reason2 = ""},
-            new Targets {Name = "", Age = 0, Reason1 = "", Reason2 = ""},
-            new Targets {Name = "", Age = 0, Reason1 = "", Reason2 = ""},
-            new Targets {Name = "", Age = 0, Reason1 = "", Reason2 = ""},
-            new Targets {Name = "", Age = 0, Reason1 = "", Reason2 = ""},
-            new Targets {Name = "", Age = 0, Reason1 = "", Reason2 = ""},
-            new Targets {Name = "", Age = 0, Reason1 = "", Reason2 = ""},
-            new Targets {Name = "", Age = 0, Reason1 = "", Reason2 = ""},
-            new Targets {Name = "", Age = 0, Reason1 = "", Reason2 = ""},
-            new Targets {Name = "", Age = 0, Reason1 = "", Reason2 = ""},
-            new Targets {Name = "", Age = 0, Reason1 = "", Reason2 = ""},
-            new Targets {Name = "", Age = 0, Reason1 = "", Reason2 = ""},
-            new Targets {Name = "", Age = 0, Reason1 = "", Reason2 = ""},
-            new Targets {Name = "", Age = 0, Reason1 = "", Reason2 = ""},
-            new Targets {Name = "", Age = 0, Reason1 = "", Reason2 = ""},
-            new Targets {Name = "", Age = 0, Reason1 = "", Reason2 = ""},
-            new Targets {Name = "", Age = 0, Reason1 = "", Reason2 = ""},
-            new Targets {Name = "", Age = 0, Reason1 = "", Reason2 = ""},
-            new Targets {Name = "", Age = 0, Reason1 = "", Reason2 = ""},
-            new Targets {Name = "", Age = 0, Reason1 = "", Reason2 = ""},
-            new Targets {Name = "", Age = 0, Reason1 = "", Reason2 = ""},
-            new Targets {Name = "", Age = 0, Reason1 = "", Reason2 = ""},
-            new Targets {Name = "", Age = 0, Reason1 = "", Reason2 = ""},
-            new Targets {Name = "", Age = 0, Reason1 = "", Reason2 = ""},
-            new Targets {Name = "", Age = 0, Reason1 = "", Reason2 = ""},
-            new Targets {Name = "", Age = 0, Reason1 = "", Reason2 = ""},
-            new Targets {Name = "", Age = 0, Reason1 = "", Reason2 = ""},
-            new Targets {Name = "", Age = 0, Reason1 = "", Reason2 = ""},
-            new Targets {Name = "", Age = 0, Reason1 = "", Reason2 = ""},
-            new Targets {Name = "", Age = 0, Reason1 = "", Reason2 = ""},
-            new Targets {Name = "", Age = 0, Reason1 = "", Reason2 = ""},
-            new Targets {Name = "", Age = 0, Reason1 = "", Reason2 = ""},
-            new Targets {Name = "", Age = 0, Reason1 = "", Reason2 = ""},
-            new Targets {Name = "", Age = 0, Reason1 = "", Reason2 = ""},
-            new Targets {Name = "", Age = 0, Reason1 = "", Reason2 = ""},
-            new Targets {Name = "", Age = 0, Reason1 = "", Reason2 = ""},
-            new Targets {Name = "", Age = 0, Reason1 = "", Reason2 = ""},
-            new Targets {Name = "", Age = 0, Reason1 = "", Reason2 = ""},
-            new Targets {Name = "", Age = 0, Reason1 = "", Reason2 = ""},
-            new Targets {Name = "", Age = 0, Reason1 = "", Reason2 = ""},
-            new Targets {Name = "", Age = 0, Reason1 = "", Reason2 = ""},
-            new Targets {Name = "", Age = 0, Reason1 = "", Reason2 = ""},
-            new Targets {Name = "", Age = 0, Reason1 = "", Reason2 = ""},
-            new Targets {Name = "", Age = 0, Reason1 = "", Reason2 = ""},
-            new Targets {Name = "", Age = 0, Reason1 = "", Reason2 = ""},
-            new Targets {Name = "", Age = 0, Reason1 = "", Reason2 = ""},
-            new Targets {Name = "", Age = 0, Reason1 = "", Reason2 = ""},
-            new Targets {Name = "", Age = 0, Reason1 = "", Reason2 = ""},
-            new Targets {Name = "", Age = 0, Reason1 = "", Reason2 = ""},
-            new Targets {Name = "", Age = 0, Reason1 = "", Reason2 = ""},
-            new Targets {Name = "", Age = 0, Reason1 = "", Reason2 = ""},
-            new Targets {Name = "", Age = 0, Reason1 = "", Reason2 = ""},
-            new Targets {Name = "", Age = 0, Reason1 = "", Reason2 = ""},
-            new Targets {Name = "", Age = 0, Reason1 = "", Reason2 = ""},
-            new Targets {Name = "", Age = 0, Reason1 = "", Reason2 = ""},
-            new Targets {Name = "", Age = 0, Reason1 = "", Reason2 = ""},
-            new Targets {Name = "", Age = 0, Reason1 = "", Reason2 = ""},
-            new Targets {Name = "", Age = 0, Reason1 = "", Reason2 = ""},
-            new Targets {Name = "", Age = 0, Reason1 = "", Reason2 = ""},
-            new Targets {Name = "", Age = 0, Reason1 = "", Reason2 = ""},
-            new Targets {Name = "", Age = 0, Reason1 = "", Reason2 = ""},
-            new Targets {Name = "", Age = 0, Reason1 = "", Reason2 = ""},
-            new Targets {Name = "", Age = 0, Reason1 = "", Reason2 = ""},
-            new Targets {Name = "", Age = 0, Reason1 = "", Reason2 = ""},
-            new Targets {Name = "", Age = 0, Reason1 = "", Reason2 = ""},
-            new Targets {Name = "", Age = 0, Reason1 = "", Reason2 = ""},
-            new Targets {Name = "", Age = 0, Reason1 = "", Reason2 = ""},
-            new Targets {Name = "", Age = 0, Reason1 = "", Reason2 = ""},
-            new Targets {Name = "", Age = 0, Reason1 = "", Reason2 = ""},
-            new Targets {Name = "", Age = 0, Reason1 = "", Reason2 = ""},
-            new Targets {Name = "", Age = 0, Reason1 = "", Reason2 = ""},
-            new Targets {Name = "", Age = 0, Reason1 = "", Reason2 = ""},
-            new Targets {Name = "", Age = 0, Reason1 = "", Reason2 = ""},
-            new Targets {Name = "", Age = 0, Reason1 = "", Reason2 = ""},
-            new Targets {Name = "", Age = 0, Reason1 = "", Reason2 = ""},
-            new Targets {Name = "", Age = 0, Reason1 = "", Reason2 = ""},
-            new Targets {Name = "", Age = 0, Reason1 = "", Reason2 = ""},
-            new Targets {Name = "", Age = 0, Reason1 = "", Reason2 = ""},
-            new Targets {Name = "", Age = 0, Reason1 = "", Reason2 = ""},
-            new Targets {Name = "", Age = 0, Reason1 = "", Reason2 = ""},
-            new Targets {Name = "", Age = 0, Reason1 = "", Reason2 = ""},
-            new Targets {Name = "", Age = 0, Reason1 = "", Reason2 = ""},
-            new Targets {Name = "", Age = 0, Reason1 = "", Reason2 = ""},
-            new Targets {Name = "", Age = 0, Reason1 = "", Reason2 = ""},
-            new Targets {Name = "", Age = 0, Reason1 = "", Reason2 = ""},
-            new Targets {Name = "", Age = 0, Reason1 = "", Reason2 = ""},
-            new Targets {Name = "", Age = 0, Reason1 = "", Reason2 = ""},
-            new Targets {Name = "", Age = 0, Reason1 = "", Reason2 = ""},
-            new Targets {Name = "", Age = 0, Reason1 = "", Reason2 = ""},
-            new Targets {Name = "", Age = 0, Reason1 = "", Reason2 = ""},
-            new Targets {Name = "", Age = 0, Reason1 = "", Reason2 = ""},
-            new Targets {Name = "", Age = 0, Reason1 = "", Reason2 = ""},
-
-        };
-    
-    //private Targets[] TargetInformation = new Targets[0];
-
-    //Line 277 creates a NullReferenceException anytime that TargetInformation[].<item> is called. Line 236 is what I wanted to do instead of that attrocity above it.
-
-
+    //We'll fill in this array with info later.
+    private Targets[] TargetInformation = new Targets[_targetNames.Length];
 
     public KMAudio Audio;
     public KMBombModule Module;
@@ -262,9 +153,10 @@ public class HitmanScript : KtaneModule
 
     private int selectedAnswer;
     private int displayedOption;
-    private int[] TargetOrder = new int[15];
     private int targetLimit;
-    private int startingPoint;
+
+    private Targets[] chosenTargets;
+    private Targets answer;
 
     protected override void Awake()
     {
@@ -274,139 +166,154 @@ public class HitmanScript : KtaneModule
             int j = i;
             Buttons[i].OnInteract += delegate { ButtonOperation(j); return false; };
         }
+        LoadTargets();
         GenMod();
+        SetDisplay();
+        Debug.LogFormat("[Hitman #{0}] Good morning Agent 47. Your target is {1}. Get the job done.", ModuleID, answer.Name);
+        Debug.LogFormat("[Hitman #{0}] Among the crowd also lies {1}. Eyes on your target.", ModuleID, chosenTargets.Where(x => x.TargetID != answer.TargetID).Select(x => x.Name).Join(", "));
+    }
+
+    void LoadTargets()
+    {
+        for (int i = 0; i < TargetInformation.Length; i++)
+        {
+            //Target initialization needs to be done here, or else every target will be index 96.
+            Targets thisTarget = new Targets();
+            thisTarget.Name = _targetNames[i];
+            thisTarget.Age = Random.Range(30, 70);
+            thisTarget.Alive = true;
+            thisTarget.TargetID = i;
+            if (Random.Range(0f, 1f) > .5f) //If true, use Two Line Reasons
+            {
+                int line = Random.Range(0, TwoLine.GetLength(0));
+                thisTarget.Reason1 = TwoLine[line, 0];
+                thisTarget.Reason2 = TwoLine[line, 1];
+            }
+            else
+            {
+                int line = Random.Range(0, OneLine.Length);
+                thisTarget.Reason1 = OneLine[line];
+                thisTarget.Reason2 = "";
+            }
+            TargetInformation[i] = thisTarget;
+            Debug.LogFormat("<Hitman #{5}> Name: {0}, Age: {1}, Reason: {2} {3}, Target ID: {4}", thisTarget.Name, thisTarget.Age, thisTarget.Reason1, thisTarget.Reason2, thisTarget.TargetID, ModuleID);
+        }
     }
 
     void GenMod()
     {
-        targetLimit = Random.Range(5, 10);
-        startingPoint = Random.Range(0, _targetNames.Length);
-        displayedOption = Random.Range(0, 16);
-        selectedAnswer = Random.Range(0, 16);
+        targetLimit = Random.Range(7, 13);
 
-        for (var i = 0; i < 15; i++)
-        {
-            TargetOrder[i] = startingPoint + i >= _targetNames.Length + 1 ? startingPoint + i - _targetNames.Length : startingPoint + i;
-            TargetInformation[i].Name = _targetNames[startingPoint + i >= _targetNames.Length + 1 ? startingPoint + i - _targetNames.Length : startingPoint + i];
-            TargetInformation[i].Age = Random.Range(30, 70);
-            TargetInformation[i].Alive = true;
-            if (Random.Range(0f, 1f) > .5f) //If true, use Two Line Reasons
-            {
-                int line = Random.Range(0, TwoLine.GetLength(0));
-                TargetInformation[i].Reason1 = TwoLine[line, 0];
-                TargetInformation[i].Reason2 = TwoLine[line, 1];
-            }
-            else
-            {
-                int line = Random.Range(0, OneLine.Length);
-                TargetInformation[i].Reason1 = OneLine[line];
-                TargetInformation[i].Reason2 = "";
-            }
-            Debug.LogFormat("Name: {0}, Age: {1}, Reason: {2} {3}, Target Order: {4}", TargetInformation[i].Name, TargetInformation[i].Age, TargetInformation[i].Reason1, TargetInformation[i].Reason2, TargetOrder[i]);
-        }
-        TargetOrder.Shuffle();
-    }
-
-    /*void GenMod()
-    {
         displayedOption = Random.Range(0, targetLimit);
-        selectedAnswer = Random.Range(0, targetLimit);
-        targetLimit = Random.Range(5, 10);
-        startingPoint = Random.Range(0, _targetNames.Length);
+        TargetInformation = TargetInformation.Shuffle();
+        chosenTargets = TargetInformation.Take(targetLimit).ToArray();
+        answer = chosenTargets[0];
+        chosenTargets = chosenTargets.Shuffle();
 
-
-        int position = 0;
-        for (var i = startingPoint; i < startingPoint + targetLimit; i++)
+    }
+    void SetDisplay()
+    {
+        Targets thisTarget = chosenTargets[displayedOption];
+        nameEntry.text = thisTarget.Name;
+        ageEntry.text = thisTarget.Age.ToString();
+        reasonEntry1.text = thisTarget.Reason1;
+        reasonEntry2.text = thisTarget.Reason2;
+        if (!thisTarget.Alive)
         {
-            position++;
-
-            if (i > _targetNames.Length)
-            {
-                i = i - _targetNames.Length;
-                Debug.Log("Reached end of Names! Wrapping around!");
-            }
-            TargetOrder[position] = i;
-            TargetInformation[i].Name = _targetNames[i];
-            TargetInformation[i].Age = Random.Range(23,65);
-            if (Random.Range(0f,1f)>.5f) //If true, use Two Line Reasons
-            {
-                int line = Random.Range(0, TwoLine.GetLength(0));
-                TargetInformation[i].Reason1 = TwoLine[line,0];
-                TargetInformation[i].Reason2 = TwoLine[line, 1];
-            }
-            else
-            {
-                int line = Random.Range(0, OneLine.Length);
-                TargetInformation[i].Reason1 = OneLine[line];
-                TargetInformation[i].Reason2 = "";
-            }
-            TargetInformation[i].Alive = true;
-            Debug.LogFormat("Name: {0}, Age: {1}, Reason: {2} {3}", TargetInformation[i].Age, TargetInformation[i].Age, TargetInformation[i].Reason1, TargetInformation[i].Reason2);
+            Blood.SetActive(true);
+            targetPicture.sprite = Targets[answer.TargetID];
         }
-        TargetOrder.Shuffle();
-        targetPicture.sprite = Targets[TargetOrder[selectedAnswer]];
-        nameEntry.text = TargetInformation[TargetOrder[displayedOption]].Name;
-        ageEntry.text = TargetInformation[TargetOrder[displayedOption]].Age.ToString();
-        reasonEntry1.text = TargetInformation[TargetOrder[displayedOption]].Reason1;
-        reasonEntry2.text = TargetInformation[TargetOrder[displayedOption]].Reason2;
-        Debug.LogFormat("[Hitman #{0}] Your target is {1}. Good luck, Agent 47.", ModuleID, TargetInformation[TargetOrder[selectedAnswer]].Name);
-    }*/
+        else
+        {
+            Blood.SetActive(false);
+            targetPicture.sprite = Targets[answer.TargetID];
+        }
+    }
 
     void ButtonOperation(int button)
     {
         if (_isSolved)
             return;
+        Targets thisTarget = chosenTargets[displayedOption];
         Audio.PlayGameSoundAtTransform(KMSoundOverride.SoundEffect.ButtonPress, transform);
         switch (button)
         {
             case 0:
                 displayedOption--;
-                if (displayedOption == -1)
-                    displayedOption = 15;
+                if (displayedOption < 0)
+                    displayedOption += targetLimit;
                 Debug.Log(displayedOption.ToString());
                 break;
             case 1:
                 displayedOption++;
-                if (displayedOption == 16)
-                    displayedOption = 0;
-                Debug.Log(displayedOption.ToString());
+                displayedOption %= targetLimit;
                 break;
             case 2:
-                Audio.PlaySoundAtTransform(_gunSounds[Random.Range(0, _gunSounds.Length)], transform);
-                TargetInformation[TargetOrder[displayedOption]].Alive = false;
+                Audio.PlaySoundAtTransform(_gunSounds.PickRandom(), transform);
+                Buttons[2].AddInteractionPunch(0.4f);
+                thisTarget.Alive = false;
                 Debug.Log(displayedOption.ToString());
-                if (TargetOrder[displayedOption] == TargetOrder[selectedAnswer])
+                if (thisTarget == answer)
                 {
                     Blood.transform.localEulerAngles = new Vector3(Blood.transform.localEulerAngles.x, Blood.transform.localEulerAngles.y, Random.Range(0f, 360f));
 
                     Audio.PlaySoundAtTransform("Solve3", transform);
                     _isSolved = true;
                     Module.HandlePass();
-                    Debug.LogFormat("[Hitman #{0}] You killed your target, {1}. Good job, Agent 47.", ModuleID, TargetInformation[TargetOrder[selectedAnswer]].Name);
+                    Debug.LogFormat("[Hitman #{0}] You killed your target, {1}. Good job, Agent 47.", ModuleID, answer.Name);
                 }
                 else
                 {
                     Blood.transform.localEulerAngles = new Vector3(Blood.transform.localEulerAngles.x, Blood.transform.localEulerAngles.y, Random.Range(0f, 360f));
                     Module.HandleStrike();
-                    Debug.LogFormat("[Hitman #{0}] Agent 47, you shot {1} but your target is {2}. You know better than to kill non-targets.", ModuleID, TargetInformation[TargetOrder[displayedOption]].Name, TargetInformation[TargetOrder[selectedAnswer]].Name);
+                    Debug.LogFormat("[Hitman #{0}] Agent 47, you shot {1} but your target is {2}. You know better than to kill non-targets.", ModuleID, thisTarget.Name, answer.Name);
                 }
                 break;
         }
-        
-        /*nameEntry.text = TargetInformation[TargetOrder[displayedOption]].Name;
-        ageEntry.text = TargetInformation[TargetOrder[displayedOption]].Age.ToString();
-        reasonEntry1.text = TargetInformation[TargetOrder[displayedOption]].Reason1;
-        reasonEntry2.text = TargetInformation[TargetOrder[displayedOption]].Reason2;*/
-        if (!TargetInformation[TargetOrder[displayedOption]].Alive)
+        SetDisplay();
+    }
+
+#pragma warning disable 414
+    private readonly string TwitchHelpMessage = @"Use <!{0} kill Marcus Stuyvesant> to shoot them.";
+#pragma warning restore 414
+
+    private IEnumerator ProcessTwitchCommand(string command)
+    {
+        command = command.Trim().ToUpperInvariant();
+        List<string> parameters = command.Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries).ToList();
+        string[] availableNames = chosenTargets.Select(x => x.Name.ToUpper()).ToArray();
+
+        if (new string[] { "KILL", "SHOOT", "FIRE", "SUBMIT", "HIT", "ELIMINATE" }.Contains(parameters.First()))
         {
-            Blood.SetActive(true);
-            targetPicture.sprite = Targets[TargetOrder[displayedOption]];
+            parameters.RemoveAt(0);
+            if (!availableNames.Contains(parameters.Join()))
+            {
+                yield return "sendtochaterror No such person could be located.";
+                yield break;
+            }
+            int targetIndex = Array.IndexOf(availableNames, parameters.Join());
+            KMSelectable closestButton = Math.Abs(displayedOption - targetIndex) < targetLimit / 2 ^ targetIndex > displayedOption ? Buttons[0] : Buttons[1]; //Determines which button is the shortest path to the answer.
+            yield return null;
+            while (displayedOption != targetIndex)
+            {
+                closestButton.OnInteract();
+                yield return new WaitForSeconds(0.1f);
+            }
+            Buttons[2].OnInteract();
         }
-        else
+    }
+    private IEnumerator TwitchHandleForcedSolve()
+    {
+        int[] IDs = chosenTargets.Select(x => x.TargetID).ToArray();
+        int targetIndex = Array.IndexOf(IDs, answer.TargetID);
+        KMSelectable closestButton = Math.Abs(displayedOption - targetIndex) < targetLimit / 2 ^ targetIndex > displayedOption ? Buttons[0] : Buttons[1]; //Determines which button is the shortest path to the answer.
+        while (displayedOption != targetIndex)
         {
-            Blood.SetActive(false);
-            targetPicture.sprite = Targets[TargetOrder[selectedAnswer]];
+            closestButton.OnInteract();
+            yield return new WaitForSeconds(0.1f);
         }
+        Buttons[2].OnInteract();
+        yield return new WaitForSeconds(0.1f);
     }
 }
 
@@ -417,5 +324,9 @@ public class Targets
     public bool Alive;
     public string Reason1;
     public string Reason2;
-    public int Target;
+    public int TargetID;
+    public static bool operator ==(Targets t1, Targets t2)
+        { return t1.TargetID == t2.TargetID; }
+    public static bool operator !=(Targets t1, Targets t2)
+        { return t1.TargetID != t2.TargetID; }
 }
