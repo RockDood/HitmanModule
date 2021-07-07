@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 615501dbe4f3fe94fbf4b564abb10237, type: 3}
+  m_Name: ModConfig
+  m_EditorClassIdentifier: 
+  id: HitmanModule
+  title: Hitman
+  author: RockDood
+  description: "[i]Dalia Margolis: Good Evening: I don't believe we had the pleasure
+    Mr., um ...\r\nAgent 47: Rieper. Tobias Rieper. I'm a friend of Viktor's.\r\nDalia
+    Margolis: I .. see. I wish i had been informed. Well no matter. Enjoy the auction,
+    Mr. Rieper. I will see you later.\r\nAgent 47: I'm looking forward to it.[/i]\n\nEnter
+    a World of Assassination and identify your targets before taking them down.\n\nManual:
+    Coming Soon (Waiting on Repo link, Manual is bundled with the mod for now.)"
+  version: 1
+  outputFolder: build
+  previewImage: {fileID: 2800000, guid: c32e6ee1473950743a1501406e2c7898, type: 3}
