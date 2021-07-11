@@ -150,7 +150,7 @@ public class HitmanScript : KtaneModule
     public Sprite[] Targets;
 
     private bool _isSolved;
-    private bool _SolvedTP;
+    private bool TwitchPlaysActive;
 
     private int selectedAnswer;
     private int displayedOption;
@@ -249,17 +249,21 @@ public class HitmanScript : KtaneModule
                 displayedOption %= targetLimit;
                 break;
             case 2:
-                Audio.PlaySoundAtTransform(_gunSounds.PickRandom(), transform);
                 Buttons[2].AddInteractionPunch(0.4f);
-                thisTarget.Alive = false;
                 if (thisTarget == answer)
                 {
-                    Blood.transform.localEulerAngles = new Vector3(Blood.transform.localEulerAngles.x, Blood.transform.localEulerAngles.y, Random.Range(0f, 360f));
-
-                    Audio.PlaySoundAtTransform("Solve3", transform);
                     _isSolved = true;
-                    Module.HandlePass();
-                    Debug.LogFormat("[Hitman #{0}] You killed your target, {1}. Good job, Agent 47.", ModuleID, answer.Name);
+                    if (TwitchPlaysActive)
+                        StartCoroutine(TPSolve());
+                    else
+                    {
+                        thisTarget.Alive = false;
+                        Audio.PlaySoundAtTransform(_gunSounds.PickRandom(), transform);
+                        Blood.transform.localEulerAngles = new Vector3(Blood.transform.localEulerAngles.x, Blood.transform.localEulerAngles.y, Random.Range(0f, 360f));
+                        Audio.PlaySoundAtTransform("Solve3", transform);
+                        Module.HandlePass();
+                        Debug.LogFormat("[Hitman #{0}] You killed your target, {1}. Good job, Agent 47.", ModuleID, answer.Name);
+                    }
                 }
                 else
                 {
@@ -324,6 +328,17 @@ public class HitmanScript : KtaneModule
         }
         Buttons[2].OnInteract();
         yield return new WaitForSeconds(0.1f);
+    }
+    private IEnumerator TPSolve()
+    {
+        Audio.PlaySoundAtTransform("beemp", transform);
+        yield return new WaitForSeconds(3);
+        chosenTargets[displayedOption].Alive = false;
+        SetDisplay();
+        Blood.transform.localEulerAngles = new Vector3(Blood.transform.localEulerAngles.x, Blood.transform.localEulerAngles.y, Random.Range(0f, 360f));
+        Audio.PlaySoundAtTransform("Small Explosion", transform);
+        Module.HandlePass();
+        Debug.LogFormat("[Hitman #{0}] You killed your target, {1}. Good job, Agent 47.", ModuleID, answer.Name);
     }
 }
 
