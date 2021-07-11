@@ -19,7 +19,7 @@ MonoBehaviour:
     Margolis: I .. see. I wish i had been informed. Well no matter. Enjoy the auction,
     Mr. Rieper. I will see you later.\r\nAgent 47: I'm looking forward to it.[/i]\n\nEnter
     a World of Assassination and identify your targets before taking them down.\n\nManual:
-    Coming Soon (Waiting on Repo link, Manual is bundled with the mod for now.)"
+    https://ktane.timwi.de/HTML/Hitman.html"
   version: 1
   outputFolder: build
   previewImage: {fileID: 2800000, guid: c32e6ee1473950743a1501406e2c7898, type: 3}

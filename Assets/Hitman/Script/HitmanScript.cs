@@ -150,6 +150,7 @@ public class HitmanScript : KtaneModule
     public Sprite[] Targets;
 
     private bool _isSolved;
+    private bool _SolvedTP;
 
     private int selectedAnswer;
     private int displayedOption;
@@ -202,7 +203,7 @@ public class HitmanScript : KtaneModule
 
     void GenMod()
     {
-        targetLimit = Random.Range(7, 13);
+        targetLimit = Random.Range(10, 16);
 
         displayedOption = Random.Range(0, targetLimit);
         TargetInformation = TargetInformation.Shuffle();
@@ -221,7 +222,7 @@ public class HitmanScript : KtaneModule
         if (!thisTarget.Alive)
         {
             Blood.SetActive(true);
-            targetPicture.sprite = Targets[answer.TargetID];
+            targetPicture.sprite = Targets[thisTarget.TargetID];
         }
         else
         {
@@ -242,7 +243,6 @@ public class HitmanScript : KtaneModule
                 displayedOption--;
                 if (displayedOption < 0)
                     displayedOption += targetLimit;
-                Debug.Log(displayedOption.ToString());
                 break;
             case 1:
                 displayedOption++;
@@ -252,7 +252,6 @@ public class HitmanScript : KtaneModule
                 Audio.PlaySoundAtTransform(_gunSounds.PickRandom(), transform);
                 Buttons[2].AddInteractionPunch(0.4f);
                 thisTarget.Alive = false;
-                Debug.Log(displayedOption.ToString());
                 if (thisTarget == answer)
                 {
                     Blood.transform.localEulerAngles = new Vector3(Blood.transform.localEulerAngles.x, Blood.transform.localEulerAngles.y, Random.Range(0f, 360f));
@@ -272,6 +271,8 @@ public class HitmanScript : KtaneModule
         }
         SetDisplay();
     }
+
+    
 
 #pragma warning disable 414
     private readonly string TwitchHelpMessage = @"Use <!{0} kill Marcus Stuyvesant> to shoot them.";
@@ -300,6 +301,15 @@ public class HitmanScript : KtaneModule
                 yield return new WaitForSeconds(0.1f);
             }
             Buttons[2].OnInteract();
+            const float duration = 5f;
+            var elapsed = 0f;
+            while (elapsed < duration)
+            {
+                elapsed += Time.deltaTime;
+                yield return null;
+            }
+            if (_isSolved)
+                Audio.PlaySoundAtTransform("Small Explosion", transform);
         }
     }
     private IEnumerator TwitchHandleForcedSolve()
