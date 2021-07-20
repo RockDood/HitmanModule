@@ -8,30 +8,52 @@ using Random = UnityEngine.Random;
 
 public class HitmanScript : KtaneModule
 {
-    private static readonly string[] OneLine = new string[] { 
-        "Called queue early in TP", 
-        "Mistyped Swan Code", 
-        "Wrongly noted edgework", 
-        "Gave guesses", 
-        "Missed Turn the Key" };
-    
-    private static readonly string[,] TwoLine = new string[,] { 
-        { "Blamed Expert for", "Defuser error" }, 
-        { "Hit Self Destruct", "in Lightspeed" }, 
-        { "Misclicked on", "the last module" }, 
-        { "Didn't announce", "a Boss Module" }, 
-        { "Cleared notes while", "Souvenir was present" }, 
-        { "Left the channel", "during a bomb" }, 
-        { "Didn't subtract Troll", "from 'non-Troll modules'" }, 
-        { "Forgot to disable", "advantageous features" }, 
-        { "Forgot to read a", "Forget Me Not stage" }, 
-        { "Blamed the expert", "for defuser error" }, 
-        { "Blamed the defuser", "for expert error" }, 
-        { "Misidentified a ", "look-a-like module" }, 
-        { "Ignored solve order", "w/ Turn the Keys" }, 
+    private static readonly string[] OneLine = new string[] {
+        "Called queue early in TP",
+        "Mistyped Swan Code",
+        "Wrongly noted edgework",
+        "Gave guesses",
+        "Missed Turn the Key",
+        "Uses Arbitrary Difficulty",
+        "Misread edgework",
+        "Disrespected Logbot",
+        "Missed Refill the Beer",
+        "Cursed in the KTANE server",
+        "Identity of Jason Bourne",
+        "Impatient with new players",
+        "Incessently pings roles",
+        "Posted NSFW in #general",
+        "Posted SFW in #NSFW",
+        "Posted Memes in #general",
+        "KTANE Server Moderator",
+        "KTANE Server Admin",
+        "Defends Impossible Mods",
+        "Incorrect translation"
+    };
+
+    private static readonly string[,] TwoLine = new string[,] {
+        { "Blamed Expert for", "Defuser error" },
+        { "Hit Self Destruct", "in Lightspeed" },
+        { "Misclicked on", "the last module" },
+        { "Didn't announce", "a Boss Module" },
+        { "Cleared notes while", "Souvenir was present" },
+        { "Left the channel", "during a bomb" },
+        { "Didn't subtract Troll", "from 'non-Troll modules'" },
+        { "Forgot to disable", "advantageous features" },
+        { "Forgot to read a", "Forget Me Not stage" },
+        { "Blamed the expert", "for defuser error" },
+        { "Blamed the defuser", "for expert error" },
+        { "Misidentified a ", "look-a-like module" },
+        { "Ignored solve order", "w/ Turn the Keys" },
         { "Didn't Stay Crazy or", "Stay Cool" },
         { "Used Wrong", "Knob Position" },
-        { "Commited tax fraud", "in Tax Returns" }
+        { "Commited tax fraud", "in Tax Returns" },
+        { "Reported a bug but", "it was player error" },
+        { "Pinged @everyone", "on Discord" },
+        { "Made a module that", "was extremely difficult" },
+        { "KTANE Discord", "Server Owner" },
+        { "Uses @everyone", "frequently" },
+        { "KTANE Discord", "Community Manager" }
     };
 
     private static readonly string[] _targetNames = new string[] { 
@@ -305,15 +327,6 @@ public class HitmanScript : KtaneModule
                 yield return new WaitForSeconds(0.1f);
             }
             Buttons[2].OnInteract();
-            const float duration = 5f;
-            var elapsed = 0f;
-            while (elapsed < duration)
-            {
-                elapsed += Time.deltaTime;
-                yield return null;
-            }
-            if (_isSolved)
-                Audio.PlaySoundAtTransform("Small Explosion", transform);
         }
     }
     private IEnumerator TwitchHandleForcedSolve()
@@ -332,12 +345,17 @@ public class HitmanScript : KtaneModule
     private IEnumerator TPSolve()
     {
         Audio.PlaySoundAtTransform("beemp", transform);
-        yield return new WaitForSeconds(3);
+        yield return new WaitForSeconds(1);
+        Audio.PlaySoundAtTransform("beemp", transform);
+        yield return new WaitForSeconds(1);
+        Audio.PlaySoundAtTransform(_gunSounds.PickRandom(), transform);
+        Audio.PlaySoundAtTransform("Solve3", transform);
         chosenTargets[displayedOption].Alive = false;
         SetDisplay();
         Blood.transform.localEulerAngles = new Vector3(Blood.transform.localEulerAngles.x, Blood.transform.localEulerAngles.y, Random.Range(0f, 360f));
-        Audio.PlaySoundAtTransform("Small Explosion", transform);
         Module.HandlePass();
+        yield return new WaitForSeconds(7);
+        Audio.PlaySoundAtTransform("Small Explosion", transform);
         Debug.LogFormat("[Hitman #{0}] You killed your target, {1}. Good job, Agent 47.", ModuleID, answer.Name);
     }
 }
