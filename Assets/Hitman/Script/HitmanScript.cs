@@ -172,6 +172,7 @@ public class HitmanScript : KtaneModule
     public Sprite[] Targets;
 
     private bool _isSolved;
+    private bool _isTPSolved;
     private bool TwitchPlaysActive;
 
     private int selectedAnswer;
@@ -341,6 +342,7 @@ public class HitmanScript : KtaneModule
         }
         Buttons[2].OnInteract();
         yield return new WaitForSeconds(0.1f);
+        while (!_isTPSolved) yield return true;
     }
     private IEnumerator TPSolve()
     {
@@ -354,6 +356,7 @@ public class HitmanScript : KtaneModule
         SetDisplay();
         Blood.transform.localEulerAngles = new Vector3(Blood.transform.localEulerAngles.x, Blood.transform.localEulerAngles.y, Random.Range(0f, 360f));
         Module.HandlePass();
+        _isTPSolved = true;
         yield return new WaitForSeconds(7);
         Audio.PlaySoundAtTransform("Small Explosion", transform);
         Debug.LogFormat("[Hitman #{0}] You killed your target, {1}. Good job, Agent 47.", ModuleID, answer.Name);
