@@ -328,6 +328,7 @@ public class HitmanScript : KtaneModule
                 yield return new WaitForSeconds(0.1f);
             }
             Buttons[2].OnInteract();
+            yield return targetIndex == Array.IndexOf(IDs, answer.TargetID) ? "solve" : "strike";
         }
     }
     private IEnumerator TwitchHandleForcedSolve()
@@ -336,8 +337,7 @@ public class HitmanScript : KtaneModule
         int targetIndex = Array.IndexOf(IDs, answer.TargetID);
         KMSelectable closestButton = Math.Abs(displayedOption - targetIndex) < targetLimit / 2 ^ targetIndex > displayedOption ? Buttons[0] : Buttons[1]; //Determines which button is the shortest path to the answer.
         while (displayedOption != targetIndex)
-        {
-            closestButton.OnInteract();
+        {            closestButton.OnInteract();
             yield return new WaitForSeconds(0.1f);
         }
         Buttons[2].OnInteract();
