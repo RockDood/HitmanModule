@@ -9,29 +9,43 @@ using Random = UnityEngine.Random;
 public class HitmanScript : KtaneModule
 {
     private static readonly string[] OneLine = new string[] {
-        "Called queue early in TP",
-        "Mistyped Swan Code",
-        "Wrongly noted edgework",
-        "Gave guesses",
-        "Missed Turn the Key",
-        "Uses Arbitrary Difficulty",
-        "Misread edgework",
-        "Disrespected Logbot",
-        "Missed Refill the Beer",
-        "Cursed in the KTANE server",
-        "Identity of Jason Bourne",
-        "Impatient with new players",
-        "Incessently pings roles",
-        "Posted NSFW in #general",
-        "Posted SFW in #NSFW",
-        "Posted Memes in #general",
-        "KTANE Server Moderator",
-        "KTANE Server Admin",
-        "Defends Impossible Mods",
-        "Incorrect translation"
+        "",
     };
 
     private static readonly string[,] TwoLine = new string[,] {
+        { "Called queue early in TP", "" },
+        { "Mistyped Swan Code", "" },
+        { "Wrongly noted edgework", "" },
+        { "Gave guesses", "" },
+        { "Missed Turn the Key", "" },
+        { "Uses Arbitrary Difficulty", "" },
+        { "Misread edgework", "" },
+        { "Disrespected Logbot", "" },
+        { "Missed Refill the Beer", "" },
+        { "Cursed in the KTANE server", "" },
+        { "Identity of Jason Bourne", "" },
+        { "Impatient with new players", "" },
+        { "Incessently pings roles", "" },
+        { "Posted NSFW in #general", "" },
+        { "Posted SFW in #NSFW", "" },
+        { "Posted Memes in #general", "" },
+        { "KTANE Server Moderator", "" },
+        { "KTANE Server Admin", "" },
+        { "Defends Impossible Mods", "" },
+        { "Incorrect translation", "" },
+        { "Triggered the Klaxon", "" },
+        { "Only submits Logfile Solves", "" },
+        { "Uses solvers in Competitive", "" },
+        { "Collected Rainwater", "" },
+        { "Bad at Speling", "" },
+        { "Mass-pinged on Discord", "" },
+        { "Makes stupid Tweets", "" },
+        { "Reddit User", "" },
+        { "Facebook User", "" },
+        { "MySpace User", "" },
+        { "Twitter User", "" },
+        { "Ifunny User", "" },
+        { "Plays CS:GO", "" },
         { "Blamed Expert for", "Defuser error" },
         { "Hit Self Destruct", "in Lightspeed" },
         { "Misclicked on", "the last module" },
@@ -173,7 +187,6 @@ public class HitmanScript : KtaneModule
 
     private bool _isSolved;
     private bool _isTPSolved;
-    private bool TwitchPlaysActive;
 
     private int selectedAnswer;
     private int displayedOption;
@@ -207,7 +220,7 @@ public class HitmanScript : KtaneModule
             thisTarget.Age = Random.Range(30, 70);
             thisTarget.Alive = true;
             thisTarget.TargetID = i;
-            if (Random.Range(0f, 1f) > .5f) //If true, use Two Line Reasons
+            if (true) //If true, use Two Line Reasons
             {
                 int line = Random.Range(0, TwoLine.GetLength(0));
                 thisTarget.Reason1 = TwoLine[line, 0];
@@ -307,6 +320,7 @@ public class HitmanScript : KtaneModule
 
     private IEnumerator ProcessTwitchCommand(string command)
     {
+        int[] IDs = chosenTargets.Select(x => x.TargetID).ToArray();
         command = command.Trim().ToUpperInvariant();
         List<string> parameters = command.Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries).ToList();
         string[] availableNames = chosenTargets.Select(x => x.Name.ToUpper()).ToArray();
